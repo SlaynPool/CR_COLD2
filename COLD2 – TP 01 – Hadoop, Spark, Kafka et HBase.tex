@@ -82,14 +82,54 @@ On peut voir que les machines esclaves sont appellé par des noms de domaines. D
 
 \subsection{Comment   modifier   la   machine   locale   pour   que   l’on   puisse   cliquer   sur   les   liens   de   la   page«Datanodes» (http://hadoop-slave1:9864 et http://hadoop-slave2:9864 ) }
 
-PAUSE
+Je ne sais pas
 
 \subsection{Créer ensuite le répertoire de base pour l’utilisateur root}
 \insertcode{commande/7.txt}{Creation du FS }
 
 \subsection{Tester alors les options -ls, -put, -get, -mv, -rm, -cat, -tail de la commande hadoop fs}
 \insertcode{commande/8.txt}{Manipulation du FS }
+\section{Premier test de Map/Reduce}
+\subsection{Créer   le   répertoire  datain  sur   HDFS   et   y   copier   les   fichiers   textes   contenus   dans   larchive}
+On ajoute donc nos fichiers dans nos hdfs
+\insertcode{commande/9.txt}{Ajouts des fichiers}
+\subsection{ancer ensuite les commandes suivantes:}
+\insertcode{commande/10.txt}{Execution du Map/Reduce}
+\subsection{Afficher enfin le contenu du répertoire  data-out  et vérifier que le programme a bien compté lenombre d’occurrences de chaque mot de tous les fichiers sources.}
+On voit que le Map/Reduce à correctement fonctionné car : 
+\insertcode{commande/11.txt}{resultat Map/reduce}
+\subsection{Visualiser sur le site WEB http://localhost:8088/, les détails de l’application Map/Reduce qui vientd’être soumise au cluster.}
+Cela fonctionne comme le prouve la capture ci dessous:
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.270]{image/3.jpg}
+\caption{Interface Web hadoop }
+\label{fig:net }
+\end{figure}
+\section{Hadoop Streaming (Map/Reduce en python)}
+\subsection{l est alors possible d’écrire les étapes Map et Reduce avec des programmes Python (voir fichiersmapper.py et reducer.py). On peut en premier lieu, tester ces programmes en local ainsi:}
+Le Map/Reduce semble fonctionner correctement:
+\insertcode{commande/12.txt}{Map/Reduce python}
+Puis :
+\insertcode{commande/13.txt}{Vrai MAP/REDUCE}
+\section{Apache spark }
+Si on reproduit toutes les etapes à la main dans pyspark, on obtient ceci :
+\insertcode{commande/14.txt}{pyspark}
 
+La version scripté donne ceci :
+\insertcode{commande/wordStat.py}{wordStat.py}
+\insertcode{commande/wordStat.txt}{Execution du script}
 
+Pour l'executer sur le HDFS, il faut modifier les chemins des fichiers
+\insertcode{commande/wordStatHDFS.py}{wordStatHDFS.py}
+Puis l'execution :
+\insertcode{commande/wordStatHDFS.txt}{STDOUT et Preuve}
+Via l'interface WEB, on peut verifier l'execution de la tache.
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.270]{image/4.jpg}
+\caption{VerificationDe la tache. }
+\label{fig:net }
+\end{figure}
 \end{document}
 

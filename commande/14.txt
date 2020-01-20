@@ -1,0 +1,40 @@
+root@hadoop-master:~# pyspark 
+Python 2.7.13 (default, Sep 26 2018, 18:42:22) 
+[GCC 6.3.0 20170516] on linux2
+Type "help", "copyright", "credits" or "license" for more information.
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+Welcome to
+      ____              __
+     / __/__  ___ _____/ /__
+    _\ \/ _ \/ _ `/ __/  '_/
+   /__ / .__/\_,_/_/ /_/\_\   version 2.4.0
+      /_/
+
+Using Python version 2.7.13 (default, Sep 26 2018 18:42:22)
+SparkSession available as 'spark'.
+>>> print(sc)
+<SparkContext master=local[*] appName=PySparkShell>
+>>> lines=sc.textFile('file:///root/file1.txt')
+>>> print (lines)
+file:///root/file1.txt MapPartitionsRDD[1] at textFile at NativeMethodAccessorImpl.java:0
+>>> print(lines)
+file:///root/file1.txt MapPartitionsRDD[1] at textFile at NativeMethodAccessorImpl.java:0
+>>> lines.collect()
+[u'Mon petit chat', u'', u"J'ai un petit chat,", u'Petit comme \xe7a.', u"Je l'appelle Orange.", u'', u'Je ne sais pourquoi', u'Jamais il ne mange', u'Ni souris ni rat.', u'', u"C'est un chat \xe9trange", u'Aimant le nougat', u'Et le chocolat.', u'', u"Mais c'est pour cela,", u'Dit tante Solange,', u"Qu'il ne grandit pas!", u'', u'Maurice CAREME']
+>>> words=lines.flatMap(lambda x: x.split())
+>>> words.collect()
+[u'Mon', u'petit', u'chat', u"J'ai", u'un', u'petit', u'chat,', u'Petit', u'comme', u'\xe7a.', u'Je', u"l'appelle", u'Orange.', u'Je', u'ne', u'sais', u'pourquoi', u'Jamais', u'il', u'ne', u'mange', u'Ni', u'souris', u'ni', u'rat.', u"C'est", u'un', u'chat', u'\xe9trange', u'Aimant', u'le', u'nougat', u'Et', u'le', u'chocolat.', u'Mais', u"c'est", u'pour', u'cela,', u'Dit', u'tante', u'Solange,', u"Qu'il", u'ne', u'grandit', u'pas!', u'Maurice', u'CAREME']
+>>> tuples=words.map(lambda x: (x, 1))
+>>> tuples.collect()
+[(u'Mon', 1), (u'petit', 1), (u'chat', 1), (u"J'ai", 1), (u'un', 1), (u'petit', 1), (u'chat,', 1), (u'Petit', 1), (u'comme', 1), (u'\xe7a.', 1), (u'Je', 1), (u"l'appelle", 1), (u'Orange.', 1), (u'Je', 1), (u'ne', 1), (u'sais', 1), (u'pourquoi', 1), (u'Jamais', 1), (u'il', 1), (u'ne', 1), (u'mange', 1), (u'Ni', 1), (u'souris', 1), (u'ni', 1), (u'rat.', 1), (u"C'est", 1), (u'un', 1), (u'chat', 1), (u'\xe9trange', 1), (u'Aimant', 1), (u'le', 1), (u'nougat', 1), (u'Et', 1), (u'le', 1), (u'chocolat.', 1), (u'Mais', 1), (u"c'est", 1), (u'pour', 1), (u'cela,', 1), (u'Dit', 1), (u'tante', 1), (u'Solange,', 1), (u"Qu'il", 1), (u'ne', 1), (u'grandit', 1), (u'pas!', 1), (u'Maurice', 1), (u'CAREME', 1)]
+>>> res=tuples.reduceByKey(lambda a,b: a+b)
+>>> res.collect()
+[(u'Ni', 1), (u'chocolat.', 1), (u'Mais', 1), (u'petit', 2), (u"C'est", 1), (u'Orange.', 1), (u'comme', 1), (u'souris', 1), (u'pourquoi', 1), (u'il', 1), (u'chat', 2), (u'CAREME', 1), (u'chat,', 1), (u'ni', 1), (u'le', 2), (u"c'est", 1), (u'ne', 3), (u"J'ai", 1), (u'sais', 1), (u'Mon', 1), (u'Je', 2), (u'nougat', 1), (u'Solange,', 1), (u'Aimant', 1), (u'cela,', 1), (u"Qu'il", 1), (u'pas!', 1), (u'grandit', 1), (u'mange', 1), (u'Dit', 1), (u'\xe9trange', 1), (u"l'appelle", 1), (u'tante', 1), (u'\xe7a.', 1), (u'Petit', 1), (u'Maurice', 1), (u'pour', 1), (u'un', 2), (u'Et', 1), (u'rat.', 1), (u'Jamais', 1)]
+>>> mostUsed=sc.parallelize([res.takeOrdered(5, key = lambda x: -x[1])])
+>>> mostUsed.collect()
+[[(u'ne', 3), (u'petit', 2), (u'chat', 2), (u'le', 2), (u'Je', 2)]]
+>>> mostUsed.saveAsTextFile('file:///root/data_out3')
+root@hadoop-master:~# cat data_out3/part-00000 
+[(u'ne', 3), (u'petit', 2), (u'chat', 2), (u'le', 2), (u'Je', 2)]
+

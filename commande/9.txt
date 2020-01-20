@@ -1,0 +1,39 @@
+root@debian:~/COLD2-TP-01-base# docker cp files.tar.gz  hadoop-master:/root
+--SUR LE CONTAINER hadoop-master----
+root@hadoop-master:~# tar -xvf files.tar.gz 
+file1.txt
+file2.txt
+file3.txt
+file4.txt
+root@hadoop-master:~# hadoop fs -put file1.txt
+root@hadoop-master:~# hadoop fs -put file2.txt
+root@hadoop-master:~# hadoop fs -put file3.txt
+2020-01-20 13:12:13,107 WARN hdfs.DataStreamer: Caught exception
+java.lang.InterruptedException
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Thread.join(Thread.java:1252)
+	at java.lang.Thread.join(Thread.java:1326)
+	at org.apache.hadoop.hdfs.DataStreamer.closeResponder(DataStreamer.java:986)
+	at org.apache.hadoop.hdfs.DataStreamer.endBlock(DataStreamer.java:640)
+	at org.apache.hadoop.hdfs.DataStreamer.run(DataStreamer.java:810)
+root@hadoop-master:~# hadoop fs -put file3.txt
+put: file3.txt: File exists
+root@hadoop-master:~# hadoop fs -put file4.txt
+root@hadoop-master:~# hadoop fs -ls
+Found 4 items
+-rw-r--r--   2 root supergroup        269 2020-01-20 13:12 file1.txt
+-rw-r--r--   2 root supergroup        800 2020-01-20 13:12 file2.txt
+-rw-r--r--   2 root supergroup        626 2020-01-20 13:12 file3.txt
+-rw-r--r--   2 root supergroup       2097 2020-01-20 13:12 file4.txt
+root@hadoop-master:~# hadoop fs -mkdir data_in
+root@hadoop-master:~# hadoop fs -mv file*.txt  data_in/
+root@hadoop-master:~# hadoop fs -ls
+Found 1 items
+drwxr-xr-x   - root supergroup          0 2020-01-20 13:17 data_in
+root@hadoop-master:~# hadoop fs -ls data_in
+Found 4 items
+-rw-r--r--   2 root supergroup        269 2020-01-20 13:12 data_in/file1.txt
+-rw-r--r--   2 root supergroup        800 2020-01-20 13:12 data_in/file2.txt
+-rw-r--r--   2 root supergroup        626 2020-01-20 13:12 data_in/file3.txt
+-rw-r--r--   2 root supergroup       2097 2020-01-20 13:12 data_in/file4.txt
+
