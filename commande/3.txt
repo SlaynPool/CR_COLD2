@@ -1,0 +1,19 @@
+root@debian:~# unzip COLD2-TP-01-base.zip 
+Archive:  COLD2-TP-01-base.zip
+   creating: COLD2-TP-01-base/
+  inflating: COLD2-TP-01-base/start-hadoop-cluster-docker.sh  
+  inflating: COLD2-TP-01-base/mapper.py  
+  inflating: COLD2-TP-01-base/files.tar.gz  
+  inflating: COLD2-TP-01-base/2019-01-25.tar.xz  
+  inflating: COLD2-TP-01-base/stop-hadoop-cluster-docker.sh  
+  inflating: COLD2-TP-01-base/reducer.py  
+  inflating: COLD2-TP-01-base/00-00-head10.csv  
+root@debian:~# cd COLD2-TP-01-base
+root@debian:~/COLD2-TP-01-base# sh start-hadoop-cluster-docker.sh
+Start hadoop-master container...
+92880c5ced9785b8454652181ce569a705ae646421d9ed6a63cf608254c54d20
+Start hadoop-slave1 container...
+58f62e2f928b6969c30ec9e5d23a0ecc57f842980d4e9038916d09e4509f4978
+Start hadoop-slave2 container...
+a8fdcc5be0c9904616cfd852db9c519a8898a3fc6b5933daa17ca6dc367ca2c4
+

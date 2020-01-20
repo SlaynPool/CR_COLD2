@@ -1,0 +1,6 @@
+root@hadoop-master:~# jps 
+709 ResourceManager
+230 NameNode
+1112 Jps
+473 SecondaryNameNode
+

@@ -51,16 +51,44 @@ tabsize=2
 \maketitle
 
 
-\url{https://github.com/SlaynPool/CR_MQTT/}
+\url{https://github.com/SlaynPool/CR_COLD2/}
+\section{Démarrage du cluster Hadoop}
+\subsection{Récupérer l’image Hadoop sur le registre docker de l’IUT}
+On utilise la version 3.2.0 car la 3.2.1 ne fonctionne pas. Cela ne gene pas pour le bon déroulement du TP.
+\insertcode{commande/1.txt}{Docker Pull}
 
+\subsection{Créer un pont réseau docker pour le cluster Hadoop}
+On crée une nouvelle interface
+ \insertcode{commande/2.txt}{Docker network}
+\subsection{Lancer les conteneurs docker Hadoop à l’aide du script fourni} 
+\insertcode{commande/3.txt}{Creation des conteneurs}
+\subsection{Exécuter enfin le script de démarrage du cluster Hadoop}
+\insertcode{commande/4.txt}{Démarrage du CLuster}
+\subsection{Afficher   alors   la   liste   des   processus   JAVA   en   fonctionnement   sur  hadoop-master  avec   lacommande jps.}
+Voici donc la liste des processus JAVA listé par JPS une commande propre a JAVA.
+\insertcode{commande/5.txt}{Processus Java}
+\subsection{Afficher ensuite l’état du système HDFS et noter le nom des 2 machines esclaves du cluster}
+Execution de la commande:
+\insertcode{commande/6.txt}{HDFS}
+On peut voir que nous avons 2 noeuds de données répartis sur 2 machines. hadoop-slave1 et hadoop-slave2
+\subsection{Comparer aux informations disponibles sur l’URL http://localhost:9870/}
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.20]{image/1.jpg}
+\caption{Interface Web }
+\label{fig:net }
+\end{figure}
+On peut voir que les machines esclaves sont appellé par des noms de domaines. De plus, on voit que l'espaces est repartie de moitié sur chaques noeuds.
 
+\subsection{Comment   modifier   la   machine   locale   pour   que   l’on   puisse   cliquer   sur   les   liens   de   la   page«Datanodes» (http://hadoop-slave1:9864 et http://hadoop-slave2:9864 ) }
 
- 
- 
- 
- 
+PAUSE
 
+\subsection{Créer ensuite le répertoire de base pour l’utilisateur root}
+\insertcode{commande/7.txt}{Creation du FS }
 
+\subsection{Tester alors les options -ls, -put, -get, -mv, -rm, -cat, -tail de la commande hadoop fs}
+\insertcode{commande/8.txt}{Manipulation du FS }
 
 
 \end{document}

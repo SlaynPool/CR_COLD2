@@ -1,0 +1,13 @@
+root@debian:~# docker pull registry.iutbeziers.fr/cb_hadoop:3.2.0
+3.2.0: Pulling from cb_hadoop
+ecb349c71af9: Pull complete 
+6ec1610bf9a1: Pull complete 
+0ee56b3ee87a: Pull complete 
+450478d68393: Pull complete 
+37aa56283f2c: Pull complete 
+3862e9a99962: Pull complete 
+980e6faf55bd: Pull complete 
+Digest: sha256:1c3587991f31c060fe5105bd9491e098f86c66da8a4938d8227193fd1a14ea40
+Status: Downloaded newer image for registry.iutbeziers.fr/cb_hadoop:3.2.0
+registry.iutbeziers.fr/cb_hadoop:3.2.0
+

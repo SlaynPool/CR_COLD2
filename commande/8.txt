@@ -1,0 +1,21 @@
+root@hadoop-master:~# echo test> test.txt
+root@hadoop-master:~# hadoop fs -put test.txt
+root@hadoop-master:~# hadoop fs -ls
+Found 1 items
+-rw-r--r--   2 root supergroup          5 2020-01-20 10:13 test.txt
+root@hadoop-master:~# hadoop fs -get test.txt gettest.txt
+root@hadoop-master:~# ls
+gettest.txt  hdfs  test.txt
+root@hadoop-master:~# hadoop fs -mv test.txt mvtest.txt
+root@hadoop-master:~# hadoop fs -ls
+Found 1 items
+-rw-r--r--   2 root supergroup          5 2020-01-20 10:13 mvtest.txt
+root@hadoop-master:~# hadoop fs -cat mvtest.txt
+test
+root@hadoop-master:~# hadoop fs -tail mvtest.txt
+test
+root@hadoop-master:~# hadoop fs -rm mvtest.txt
+Deleted mvtest.txt
+root@hadoop-master:~# hadoop fs -ls
+root@hadoop-master:~# 
+
